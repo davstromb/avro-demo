@@ -2,7 +2,7 @@
 
 
 ### Build
-`mvn clean compile`
+`$ mvn clean compile`
 
 ### Run
-`mvn -q exec:java -Dexec.mainClass=Demo `
+`$ mvn -q exec:java -Dexec.mainClass=Demo `
