@@ -1,8 +1,55 @@
-# avro-demo
+# Avro Demo
 
+### 1. Generate classes
+```bash
+$ mvn clean install
+```
 
-### Build
-`$ mvn clean compile`
+### 2. Create an object
+```java
+User user = User.newBuilder()
+        .setName("Marie")
+        .setFavouriteColor("Green")
+        .setFavouriteNumber(7)
+        .build();
 
-### Run
+user.put("favourite_color", "Blue");
+user.setFavouriteNumber(8);
+```        
+### 3. Create an object with reflection
+
+```java
+Schema schema = ReflectData.get().getSchema(DifferentUser.class);
+GenericRecord gr = new GenericRecordBuilder(schema)
+        .set("name", "David")
+        .set("age", "27")
+        .build();  
+```                      
+
+### 4. Serialize to disk
+```java      
+DatumWriter<User> userDatumWriter = new SpecificDatumWriter<User>(User.class);
+DataFileWriter<User> dataFileWriter = new DataFileWriter<User>(userDatumWriter);
+dataFileWriter.create(user.getSchema(), getFile("users.avro"));
+dataFileWriter.append(user);
+dataFileWriter.flush();
+dataFileWriter.close();
+```  
+
+### 5. Deserialize from disk
+```java
+DatumReader<User> userDatumReader = new SpecificDatumReader<User>(User.class);
+DataFileReader<User> dataFileReader = new DataFileReader<User>(getFile("users.avro"), userDatumReader);
+User userRead = null;
+while (dataFileReader.hasNext()) {
+    userRead = dataFileReader.next(userRead);
+    System.out.println("Reading :-> " + userRead);
+}    
+```    
+
+### 6. Run
 `$ mvn -q exec:java -Dexec.mainClass=Demo `
+
+### 7. References
+ * [Apache Avro Documentation](https://avro.apache.org/docs/current/)
+ * [Schema Evolution](https://docs.oracle.com/cd/E26161_02/html/GettingStartedGuide/schemaevolution.html)
