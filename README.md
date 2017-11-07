@@ -61,7 +61,7 @@ while (dataFileReader.hasNext()) {
 ```
 
 ### 7. Run
-`$ mvn -q exec:java -Dexec.mainClass=Demo `
+`$ mvn compile -q exec:java -Dexec.mainClass=Demo `
 
 ### 8. References
  * [Apache Avro Documentation](https://avro.apache.org/docs/current/)
