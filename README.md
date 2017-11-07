@@ -53,3 +53,4 @@ while (dataFileReader.hasNext()) {
 ### 7. References
  * [Apache Avro Documentation](https://avro.apache.org/docs/current/)
  * [Schema Evolution](https://docs.oracle.com/cd/E26161_02/html/GettingStartedGuide/schemaevolution.html)
+ * [Apache Avro - More than just a serialization framework](https://www.slideshare.net/ChicagoHUG/avro-chug-20120416)
