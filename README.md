@@ -1,8 +1,10 @@
 # Avro Demo
 
+You need to have _Maven_ and _Java 8_ installed.
+
 ### 1. Generate classes
 ```bash
-$ mvn clean install
+$ mvn clean generate-sources
 ```
 
 ### 2. Create an object
