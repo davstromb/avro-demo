@@ -60,7 +60,7 @@ while (dataFileReader.hasNext()) {
 }
 ```
 
-### 7. Run
+### 7. Compile and run
 `$ mvn compile -q exec:java -Dexec.mainClass=Demo `
 
 ### 8. References
