@@ -1,4 +1,4 @@
-{"namespace": "avro.user",
+{"namespace": "avro",
  "type": "record",
  "name": "User",
  "fields": [
