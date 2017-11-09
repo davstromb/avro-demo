@@ -36,8 +36,8 @@ public class Demo {
         // CREATE OBJECT WITH REFLECTION
         Schema schema = ReflectData.get().getSchema(DifferentUser.class);
         GenericRecord genericRecord = new GenericRecordBuilder(schema)
-                .set("name", "David")
-                .set("favourite_color", "Yellow")
+                .set("name", "Omegapoint")
+                .set("favouriteNumber", 5)
                 .build();
 
         System.out.println();

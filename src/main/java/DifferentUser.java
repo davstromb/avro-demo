@@ -4,5 +4,5 @@ public class DifferentUser {
 
     public String name;
 
-    public String favouriteColor;
+    public String favouriteNumber;
 }
