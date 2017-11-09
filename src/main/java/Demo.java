@@ -4,6 +4,7 @@ import avro.*;
 import org.apache.avro.Schema;
 import org.apache.avro.file.DataFileReader;
 import org.apache.avro.file.DataFileWriter;
+import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.generic.GenericRecordBuilder;
 import org.apache.avro.io.DatumReader;
@@ -46,7 +47,7 @@ public class Demo {
         // SERIALIZE TO DISK
         DatumWriter<User> userDatumWriter = new SpecificDatumWriter<>(User.class);
         DataFileWriter<User> dataFileWriter = new DataFileWriter<>(userDatumWriter);
-        dataFileWriter.create(user.getSchema(), getFile("users.avro"));
+        dataFileWriter.create(user.getSchema(), getFile());
         dataFileWriter.append(user);
         dataFileWriter.flush();
         dataFileWriter.close();
@@ -54,24 +55,31 @@ public class Demo {
         System.out.println();
         // DESERIALIZE FROM DISK
         DatumReader<User> userDatumReader = new SpecificDatumReader<>(User.class);
-        DataFileReader<User> dataFileReader = new DataFileReader<User>(getFile("users.avro"), userDatumReader);
+        DataFileReader<User> dataFileReader = new DataFileReader<User>(getFile(), userDatumReader);
         user = null;
         while(dataFileReader.hasNext()) {
             user = dataFileReader.next(user);
             System.out.println("Found a user i file: " + user);
         }
 
-
+        System.out.println();
         // SCHEMA EVOLUTION
-
+        DatumReader<GenericRecord> genericDatumReader = new GenericDatumReader<GenericRecord>(schema);
+        DataFileReader<GenericRecord> genericFileReader
+                = new DataFileReader<GenericRecord>(getFile(), genericDatumReader);
+        GenericRecord record = null;
+        while(genericFileReader.hasNext()) {
+            record = genericFileReader.next(record);
+            System.out.println("Found a generic user i file: " + record);
+        }
 
     }
 
-    private static File getFile(final String filename) {
+    private static File getFile() {
         return new File(Thread
                 .currentThread()
                 .getContextClassLoader()
-                .getResource("data/" + filename)
+                .getResource("data/users.avro")
                 .getPath());
     }
 
