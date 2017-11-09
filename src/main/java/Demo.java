@@ -36,11 +36,11 @@ public class Demo {
 
     }
 
-    private File getFile(final String filename) {
+    private File getFile() {
         return new File(Thread
                 .currentThread()
                 .getContextClassLoader()
-                .getResource("data/" + filename)
+                .getResource("data/users.avro")
                 .getPath());
     }
 
