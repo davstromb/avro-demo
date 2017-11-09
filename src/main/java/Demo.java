@@ -1,6 +1,10 @@
 import java.io.File;
 import java.io.IOException;
 import avro.*;
+import org.apache.avro.Schema;
+import org.apache.avro.generic.GenericRecord;
+import org.apache.avro.generic.GenericRecordBuilder;
+import org.apache.avro.reflect.ReflectData;
 
 public class Demo {
 
@@ -23,10 +27,14 @@ public class Demo {
 
 
         // CREATE OBJECT WITH REFLECTION
+        Schema schema = ReflectData.get().getSchema(DifferentUser.class);
+        GenericRecord genericRecord = new GenericRecordBuilder(schema)
+                .set("name", "David")
+                .set("favourite_color", "Yellow")
+                .build();
 
-
-
-
+        System.out.println();
+        System.out.println("My different user: " + genericRecord);
         // SERIALIZE TO DISK
 
 
