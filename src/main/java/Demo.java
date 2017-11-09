@@ -25,7 +25,7 @@ public class Demo {
 
         // CREATE AN OBJECT
         User user = User.newBuilder()
-                .setName("David")
+                .setName("Mega Arne")
                 .setFavouriteColor("Yellow")
                 .setFavouriteNumber(22)
                 .build();
@@ -37,7 +37,7 @@ public class Demo {
         Schema schema = ReflectData.get().getSchema(DifferentUser.class);
         GenericRecord genericRecord = new GenericRecordBuilder(schema)
                 .set("name", "Omegapoint")
-                .set("favouriteNumber", 5)
+                .set("favouriteNumber",    15)
                 .build();
 
         System.out.println();
