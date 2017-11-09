@@ -43,7 +43,6 @@ public class Demo {
         System.out.println();
         System.out.println("My different user: " + genericRecord);
 
-
         // SERIALIZE TO DISK
         DatumWriter<User> userDatumWriter = new SpecificDatumWriter<>(User.class);
         DataFileWriter<User> dataFileWriter = new DataFileWriter<>(userDatumWriter);
@@ -52,9 +51,15 @@ public class Demo {
         dataFileWriter.flush();
         dataFileWriter.close();
 
-
+        System.out.println();
         // DESERIALIZE FROM DISK
-
+        DatumReader<User> userDatumReader = new SpecificDatumReader<>(User.class);
+        DataFileReader<User> dataFileReader = new DataFileReader<User>(getFile("users.avro"), userDatumReader);
+        user = null;
+        while(dataFileReader.hasNext()) {
+            user = dataFileReader.next(user);
+            System.out.println("Found a user i file: " + user);
+        }
 
 
         // SCHEMA EVOLUTION
